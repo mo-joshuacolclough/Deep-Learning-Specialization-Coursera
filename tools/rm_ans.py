@@ -4,10 +4,13 @@
 START_PATTERN = "### START CODE HERE ###"
 END_PATTERN = "### END CODE HERE ###"
 
+ENCODING = "utf-8"
+
 def main(file):
     new = ""
 
-    with open(file, "r") as fo:
+    print(f"Editing file '{file}'...")
+    with open(file, "r", encoding=ENCODING) as fo:
         active = False
 
         for line in fo.readlines():
@@ -18,7 +21,7 @@ def main(file):
                 active = START_PATTERN in line
                 new += line
 
-    with open(file, "w") as fo:
+    with open(file, "w", encoding=ENCODING) as fo:
         fo.write(new)
 
 if __name__ == "__main__":
