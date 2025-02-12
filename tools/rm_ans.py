@@ -1,8 +1,15 @@
 
 # Remove pre-done code.
 
-START_PATTERN = "### START CODE HERE ###"
-END_PATTERN = "### END CODE HERE ###"
+START_PATTERNS = [
+    "START CODE HERE",
+    "YOUR CODE STARTS HERE"
+]
+END_PATTERNS = [
+    "END CODE HERE",
+    "END CODER HERE",
+    "YOUR CODE ENDS HERE"
+]
 
 ENCODING = "utf-8"
 
@@ -14,11 +21,11 @@ def main(file):
         active = False
 
         for line in fo.readlines():
-            if active and END_PATTERN in line:
+            if active and any(end_pat in line for end_pat in END_PATTERNS):
                 active = False
                 new += line
             elif not active:
-                active = START_PATTERN in line
+                active = any(start_pat in line for start_pat in START_PATTERNS)
                 new += line
 
     with open(file, "w", encoding=ENCODING) as fo:
